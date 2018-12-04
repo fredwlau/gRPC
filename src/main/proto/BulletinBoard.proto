@@ -1,0 +1,33 @@
+syntax = "proto3";
+package com.bulletinboard;
+option java_multiple_files = true;
+option java_outer_classname = "RPCProto";
+
+// Implement ProtoFile Here
+
+message postMessage {
+	string title = 1;
+	string body = 2;
+	int32 uniqID = 3;
+}
+
+message serverReply {
+	string success = 1;
+}
+
+message getMessage {
+	string title = 1;
+	int32 uniqID = 2;
+}
+
+message listMessage {
+	string holder = 1;
+}
+
+service BulletinBoardRPC {
+	rpc Get (getMessage) returns (postMessage){}
+	rpc Post (postMessage) returns (serverReply){}
+	rpc List (listMessage) returns (stream postMessage){}
+	rpc Delete (getMessage) returns (serverReply){}
+}
+	
